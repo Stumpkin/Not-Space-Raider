@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
         if (gameObject.transform.position.y > 6)
         {
             Destroy(gameObject);
-            Player.fired = true;
+            Player.fired = false;
         }
 
         brb.velocity = Vector2.up * speed;

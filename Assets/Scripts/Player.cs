@@ -22,20 +22,16 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, 0f);
         cannon.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + .3f);
+       // bullet.transform.position = new Vector2(bul)
 
         if (Input.GetKeyDown(KeyCode.Space) && !fired)
         {
             Fire(cannon);
             fired = true;
+            Debug.Log("PEW");
         }
 
-        if (fired)
-        {
-            if (bullet.transform.position.y > 6)
-            {
-                fired = false;
-            }
-        }
+       
     }
 
     void Fire(GameObject spawnObject)
