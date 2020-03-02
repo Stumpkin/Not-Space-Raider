@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public Rigidbody brb;
+    public Rigidbody2D brb;
     public float speed = 4f;
     // Start is called before the first frame update
     void Start()
@@ -15,13 +15,21 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.transform.position.y > 6)
+        if (Player.fired)
         {
-            Destroy(gameObject);
-            Player.fired = false;
-        }
+            if (gameObject.transform.position.y > 6)
+            {
+                Destroy(gameObject);
+                Player.fired = false;
+            }
 
-        brb.velocity = Vector2.up * speed;
-        
+            brb.velocity = Vector2.up * speed;
+        }
+        /*
+        if (BadGuy.fired)
+        {
+            brb.velocity = Vector2.down * speed;
+        }
+        */
     }
 }
