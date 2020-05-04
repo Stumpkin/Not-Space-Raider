@@ -22,14 +22,9 @@ public class Bullet : MonoBehaviour
                 Destroy(gameObject);
                 Player.fired = false;
             }
-
+            
             brb.velocity = Vector2.up * speed;
         }
-        /*
-        if (BadGuy.fired)
-        {
-            brb.velocity = Vector2.down * speed;
-        }
-        */
+        
     }
 }

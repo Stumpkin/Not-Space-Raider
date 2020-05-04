@@ -6,53 +6,57 @@ using TMPro;
 public class UI : MonoBehaviour
 {
     public TextMeshProUGUI tm;
+    public TextMeshProUGUI high;
+    public BManager bManager;
     int thousand, hond, ten, ones = 0;
     // Start is called before the first frame update
     void Start()
     {
-        tm = GetComponent<TextMeshProUGUI>();
-        //tm.text = string.Format("{0}{1}{2}{3}", thousand.ToString(), hond.ToString(), ten.ToString(), ones.ToString());
+        // = GetComponent<TextMeshProUGUI>();
+        //high = GetComponent<TextMeshProUGUI>();
+        high.text = PlayerPrefs.GetString("high Scores");
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        switch(BadGuy.getType())
+       if (bManager.deadValues.Count >= 1)
         {
-            case 1:
-                ones++;
-                break;
+            int type = bManager.deadValues[bManager.deadValues.Count - 1];
+            if (!bManager.visited[bManager.deadValues.Count - 1])
+            {
+                switch (type)
+                {
+                    case 1:
+                        ones++;
+                        bManager.visited[bManager.deadValues.Count - 1] = true;
+                        break;
 
-            case 2:
-                ten++;
-                break;
+                    case 2:
+                        ones += 3;
+                        bManager.visited[bManager.deadValues.Count - 1] = true;
+                        break;
 
-            case 3:
-                hond++;
-                break;
+                    case 3:
+                        ten++;
+                        bManager.visited[bManager.deadValues.Count - 1] = true;
+                        break;
 
-            case 4:
-                thousand++;
-                break;
+                    case 4:
+                        hond++;
+                        bManager.visited[bManager.deadValues.Count - 1] = true;
+                        break;
 
-            default:
-                break;
+                    default:
+                        break;
+                }
+            }
         }
-        */
-        if (Input.GetKeyDown(KeyCode.Q))
+        
+    if (ones >= 10)
         {
-            ones++;
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            hond++;
-        }
-
-        if (ones >= 10)
-        {
-            ten++;
+            int dev = ones / 10;
+            ten += dev;
             ones = 0;
         }
         
@@ -69,5 +73,15 @@ public class UI : MonoBehaviour
         }
 
         tm.text = string.Format("{0}{1}{2}{3}", thousand.ToString(), hond.ToString(), ten.ToString(), ones.ToString());
+        int formatedCurrent = int.Parse(tm.text);
+        int formatedHigh = int.Parse(high.text);
+        Debug.Log(string.Format("{0} : {1}", high.text, tm.text));
+        if (formatedCurrent >= formatedHigh)
+        {
+            PlayerPrefs.SetString("high Scores", tm.text);
+            formatedHigh = formatedCurrent;
+            high.text = tm.text;
+        }
+
     }
 }

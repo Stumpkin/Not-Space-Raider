@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, 0f); // 2D Movement
-        cannon.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + .3f); // Follow Player's Movement
+        cannon.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + .8f); // Follow Player's Movement
         
         //Firing
         if (Input.GetKeyDown(KeyCode.Space) && !fired)
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject)
         {
             Debug.Log("OUCH");
             Destroy(collision.gameObject);

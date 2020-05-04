@@ -8,9 +8,9 @@ public class BadGuy : MonoBehaviour
     public GameObject cannon;
     public GameObject bullet;
     public int type;
-    public static bool alive = true;
+    public bool alive = true;
     public static bool fired = false;
-    private float timer = 0;
+    public float timer = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,15 +21,56 @@ public class BadGuy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cannon.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 0.3f);
-        
-        if(timer >= 10 && !fired)
+        if (!alive)
         {
-            //Fire(cannon);
-            timer = 0;
-            fired = true;
+            gameObject.SetActive(false);
         }
+
+        cannon.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y - 0.8f);
+        switch(type)
+        {
+            case 1:
+                if (timer >= 5 && alive)
+                {
+                    Fire(cannon);
+                    timer = 0;
+                    fired = true;
+                }
+                break;
+
+            case 2: 
+                if (timer > 10 && alive)
+                {
+                    Fire(cannon);
+                    timer = 0;
+                    fired = true;
+                }
+                break;
+
+            case 3:
+                if (timer >= 15 && alive)
+                {
+                    Fire(cannon);
+                    timer = 0;
+                    fired = true;
+                }
+                break;
+
+            case 4:
+                if (timer > 22 && alive)
+                {
+                    Fire(cannon);
+                    timer = 0;
+                    fired = true;
+                }
+                break;
+
+            default:
+                break;
+        }
+
         timer += 1 * Time.deltaTime;
+        
 
     }
 
@@ -38,10 +79,8 @@ public class BadGuy : MonoBehaviour
         if (collision.gameObject.tag == "Bullet")
         {
             alive = false;
-            Destroy(gameObject);
             Destroy(collision.gameObject);
             Player.fired = false;
-            getType();
         }
     }
 
@@ -54,5 +93,11 @@ public class BadGuy : MonoBehaviour
     public int getType()
     {
         return type;
+    }
+
+    public void oofed()
+    {
+        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

@@ -22,7 +22,20 @@ public class Shields : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("TAKING FIRE!!!");
+        //Debug.Log("TAKING FIRE!!! " + collision.gameObject.name);
         HP--;
+        string name = collision.gameObject.tag;
+        if (name == "Bullet")
+        {
+            Player.fired = false;
+        }
+
+        else
+        {
+            BadGuy.fired = true;
+        }
+
+        Destroy(collision.gameObject);
+
     }
 }
