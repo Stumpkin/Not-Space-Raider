@@ -5,6 +5,8 @@ using UnityEngine;
 public class Shields : MonoBehaviour
 {
     private int HP = 4;
+    public AudioSource speakers;
+    public AudioClip sound;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +24,9 @@ public class Shields : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //Debug.Log("TAKING FIRE!!! " + collision.gameObject.name);
         HP--;
+        speakers.clip = sound;
+        speakers.Play();
         string name = collision.gameObject.tag;
         if (name == "Bullet")
         {

@@ -11,6 +11,9 @@ public class BadGuy : MonoBehaviour
     public bool alive = true;
     public static bool fired = false;
     public float timer = 0;
+    public List<AudioClip> sounds;
+    public AudioSource speakers;
+    float deadTimer;
     // Start is called before the first frame update
     void Start()
     {
@@ -88,6 +91,8 @@ public class BadGuy : MonoBehaviour
     {
         bullet.transform.position = cannon.transform.position;
         Instantiate(bullet);
+        speakers.clip = sounds[0];
+        speakers.Play();
     }
 
     public int getType()

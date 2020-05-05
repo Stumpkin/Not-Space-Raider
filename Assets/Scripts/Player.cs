@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public Rigidbody2D rb;
@@ -9,6 +9,10 @@ public class Player : MonoBehaviour
     public GameObject cannon;
     public GameObject bullet;
     [SerializeField] public static bool fired = false;
+    [SerializeField] List<AudioClip> playerSounds;
+    public AudioSource speaker;
+    bool alive = true;
+    float deadTimer = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -19,16 +23,30 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, 0f); // 2D Movement
-        cannon.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + .8f); // Follow Player's Movement
-        
-        //Firing
-        if (Input.GetKeyDown(KeyCode.Space) && !fired)
+        if (!alive)
         {
-            Fire(cannon);
-            fired = true;
+            deadTimer += 1 * Time.deltaTime;
+            if (deadTimer >= 3)
+            {
+                Destroy(gameObject);
+                SceneManager.LoadScene("Credits");
+            }
         }
 
+        else if (alive)
+        {
+            rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, 0f); // 2D Movement
+            cannon.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + .8f); // Follow Player's Movement
+
+            //Firing
+            if (Input.GetKeyDown(KeyCode.Space) && !fired)
+            {
+                Fire(cannon);
+                fired = true;
+                speaker.clip = playerSounds[0];
+                speaker.Play();
+            }
+        }
        
     }
 
@@ -42,9 +60,12 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject)
         {
-            Debug.Log("OUCH");
+            speaker.clip = playerSounds[1];
+            speaker.Play();
             Destroy(collision.gameObject);
-            Destroy(gameObject);
+            alive = false;
         }
     }
+
+    
 }

@@ -58,9 +58,11 @@
      <Compile Include="Assets\Scripts\BManager.cs" />
      <Compile Include="Assets\Scripts\BadGuy.cs" />
      <Compile Include="Assets\Scripts\Bullet.cs" />
+     <Compile Include="Assets\Scripts\CreditsScript.cs" />
      <Compile Include="Assets\Scripts\EnemyBullet.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Shields.cs" />
+     <Compile Include="Assets\Scripts\SomeManager.cs" />
      <Compile Include="Assets\Scripts\UI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

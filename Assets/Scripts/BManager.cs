@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class BManager : MonoBehaviour
@@ -7,6 +8,8 @@ public class BManager : MonoBehaviour
     public List<BadGuy> badguys;
     public List<int> deadValues;
     public List<bool> visited;
+    public AudioClip sound;
+    public AudioSource speaker;
     int xLeftLimit = -7;
     int xRightLimit = 6;
     public int timer = 0;
@@ -19,10 +22,11 @@ public class BManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
+    {
         if (badguys.Count == 0)
         {
             timer = 0;
+            SceneManager.LoadScene("Credits");
         }
 
         else
@@ -38,10 +42,13 @@ public class BManager : MonoBehaviour
                 visited.Add(false);
                 badguys[x].oofed();
                 badguys.RemoveAt(x);
+                speaker.clip = badguys[0].sounds[1];
+                speaker.Play();
                 break;
             }
         } 
 
+        
         if (timer == 150 && left)
         {
             if (transform.position.x <= xLeftLimit)

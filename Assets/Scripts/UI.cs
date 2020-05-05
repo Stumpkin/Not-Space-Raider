@@ -12,8 +12,6 @@ public class UI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // = GetComponent<TextMeshProUGUI>();
-        //high = GetComponent<TextMeshProUGUI>();
         high.text = PlayerPrefs.GetString("high Scores");
     }
 
